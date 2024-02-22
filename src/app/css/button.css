@@ -1,0 +1,16 @@
+.button {
+    @apply px-8 py-1 text-center cursor-pointer rounded-xl hover:underline hover:brightness-125 active:brightness-100
+    border-b-4 inset-2 border-black/30 active:border-b-0 active:mt-1 disabled:opacity-10
+}
+
+.button-icon-left {
+    @apply bg-[0.5rem_center] bg-no-repeat bg-[length:auto_60%] pl-12
+}
+
+.selected-green {
+    @apply bg-green-500 text-black
+}
+
+.selected-red {
+    @apply bg-red-500 text-black
+}
