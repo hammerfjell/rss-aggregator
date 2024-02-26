@@ -1,9 +1,11 @@
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "../../auth/[...nextauth]/route";
 
-export async function POST (request) {
+export async function PATCH (request, { params }) {
+
+    const { feedId } = params;
 
     //sleep 1000ms
     await new Promise(resolve => setTimeout(resolve, 1000));
@@ -31,13 +33,18 @@ export async function POST (request) {
         return NextResponse.json({ message: "User not found." }, { status: 404 });
     }
 
-    await prisma.feed.create({
+    await prisma.feed.update({
+        where: {
+            id: feedId,
+            user: {
+                id: user.id
+            }
+        },
         data: {
             name: data.name,
-            url: data.url,
-            user : { connect: { id: user.id } }
+            url: data.url
         }
-    });
+    })
 
-    return NextResponse.json({ message: "Feed added successfully." }, { status: 201 });
+    return NextResponse.json({ message: "Feed edited successfully." }, { status: 201 });
 }

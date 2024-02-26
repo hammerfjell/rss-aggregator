@@ -2,10 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --orange: #f7981c;
+}
+
 body {
     @apply bg-neutral-950 text-white text-lg font-serif
 }
 
 input {
-    @apply text-black px-2 rounded-lg
+    @apply text-black px-2 rounded-lg outline-none
+}
+
+.loading {
+    @apply text-transparent pointer-events-none relative
+}
+
+.loading::after {
+    @apply content-[''] bg-[url('/ui/cog.png')] bg-[length:auto_60%] bg-center bg-no-repeat animate-slowSpin absolute z-50
+    top-0 left-0 bottom-0 right-0
 }

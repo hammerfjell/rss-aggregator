@@ -1,8 +1,9 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
-export default function FeedLabel() {
+export default function FeedLabel({ feed }) {
 
     const [visible, setVisible] = useState(true);
 
@@ -17,7 +18,13 @@ export default function FeedLabel() {
                     width={16} height={16}
                     className={visible ? "opacity-70" : "opacity-20"} />
             </button>
-            <p>Giappone</p>
+            <p>{feed.name}</p>
+            <Link href={`/app/edit/${feed.id}`} className="ml-auto">
+                <Image
+                    src="/ui/edit-icon.png"
+                    alt="Visibility"
+                    width={16} height={16} />
+            </Link>
         </div>
     )
 }

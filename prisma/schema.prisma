@@ -55,9 +55,12 @@ model VerificationToken {
 }
 
 model Feed {
-  id String @id
-  name String
-  url String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String
+  id        String @id @default(cuid())
+  name      String
+  url       String
+  user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  createdAt DateTime @default(now())
+
+  @@unique([url, userId])
 }
