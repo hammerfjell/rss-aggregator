@@ -58,6 +58,7 @@ model Feed {
   id        String @id @default(cuid())
   name      String
   url       String
+  color     Int     @default(0)
   user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   createdAt DateTime @default(now())

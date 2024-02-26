@@ -4,6 +4,7 @@ import { handleFormChange } from "@/helpers/formHelpers";
 import api from "@/lib/axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
+import labelColors from "@/helpers/labelColors";
 
 export default function AddPage() {
 
@@ -14,6 +15,7 @@ export default function AddPage() {
     const [formData, setFormData] = useState({
         name: "",
         url: "",
+        color: 0
     });
 
     useEffect(() => {
@@ -31,6 +33,10 @@ export default function AddPage() {
         }
     });
 
+    const handleColorSelection = (index) => {
+        setFormData({...formData, color: parseInt(index)});
+    }
+
     return (
         <div className="flex flex-col gap-2">
             <h1 className="text-2xl font-semibold">Add Feed</h1>
@@ -39,13 +45,17 @@ export default function AddPage() {
             <p>Add a new feed</p>
             <input name="name" onChange={(e) => handleFormChange(e, setFormData)} ref={nameInputRef} type="text" placeholder="Name" />
             <input name="url" onChange={(e) => handleFormChange(e, setFormData)} ref={urlInputRef} type="text" placeholder="https://example.com/rss.xml" />
-            <details>
-                <summary className="cursor-pointer opacity-50">Advanced</summary>
-                <div className="flex flex-row gap-2">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Telegram_2019_Logo.svg" alt="Telegram" width={24} height={24} />
-                    <p>Telegram</p>
+            <div className="flex flex-col gap-2">
+                <div className="flex flex-row gap-4">
+                    <p>Label Color: </p>
+                    <p className="rounded px-2" style={{background: labelColors[formData.color]?.background, color: labelColors[formData.color]?.text}}>{labelColors[formData.color]?.name}</p>
                 </div>
-            </details>
+                <div className="flex flex-row justify-between">
+                    {labelColors.map((color, index) => (
+                        <button key={index} onClick={() => handleColorSelection(index)} className="rounded p-2" style={{background: color.background, color: color.text}}>T</button>
+                    ))}
+                </div>
+            </div>
             <button onClick={() => submit.mutate()} disabled={submit.isPending} className={`button bg-slate-800 ${submit.isPending ? "loading" : ""}`}>Add</button>
         </div>
     )

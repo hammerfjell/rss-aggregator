@@ -42,7 +42,8 @@ export async function PATCH (request, { params }) {
         },
         data: {
             name: data.name,
-            url: data.url
+            url: data.url,
+            color: parseInt(data.color)
         }
     })
 

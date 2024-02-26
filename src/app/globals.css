@@ -22,3 +22,7 @@ input {
     @apply content-[''] bg-[url('/ui/cog.png')] bg-[length:auto_60%] bg-center bg-no-repeat animate-slowSpin absolute z-50
     top-0 left-0 bottom-0 right-0
 }
+
+.small-caps {
+    font-variant: small-caps;
+}

@@ -6,15 +6,19 @@ const api = {
         return data;
     },
     getFeeds: async () => {
-        const { data } = await axios.get("/api/feeds");
+        const { data } = await axios.get("/api/get-feeds");
+        return data;
+    },
+    getFullFeeds: async () => {
+        const { data } = await axios.get("/api/get-full-feeds");
         return data;
     },
     getFeed: async (id) => {
-        const { data } = await axios.get(`/api/feed/${id}`);
+        const { data } = await axios.get(`/api/get-feed/${id}`);
         return data;
     },
     deleteFeed: async (id) => {
-        const { data } = await axios.delete(`/api/delete/${id}`);
+        const { data } = await axios.delete(`/api/delete-feed/${id}`);
         return data;
     },
     editFeed: async (id, form) => {

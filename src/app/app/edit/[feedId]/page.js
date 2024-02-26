@@ -7,6 +7,7 @@ import api from "@/lib/axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import labelColors from "@/helpers/labelColors";
 
 export default function EditPage() {
 
@@ -19,6 +20,7 @@ export default function EditPage() {
     const [formData, setFormData] = useState({
         name: "",
         url: "",
+        color: 0
     });
 
     const query = useQuery({
@@ -48,10 +50,15 @@ export default function EditPage() {
         if (query.isSuccess) {
             setFormData({
                 name: query.data.feed.name,
-                url: query.data.feed.url
+                url: query.data.feed.url,
+                color: parseInt(query.data.feed.color)
             })
         }
     }, [query.data]);
+
+    const handleColorSelection = (index) => {
+        setFormData({...formData, color: parseInt(index)});
+    }
 
     return (
         <div className="flex flex-col gap-2">
@@ -65,15 +72,19 @@ export default function EditPage() {
                     <p>Edit this feed</p>
                     <input name="name" value={formData.name} onChange={(e) => handleFormChange(e, setFormData)} ref={nameInputRef} type="text" placeholder="Name" />
                     <input name="url" value={formData.url} onChange={(e) => handleFormChange(e, setFormData)} ref={urlInputRef} type="text" placeholder="https://example.com/rss.xml" />
-                    <details>
-                        <summary className="cursor-pointer opacity-50">Advanced</summary>
-                        <div className="flex flex-row gap-2">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Telegram_2019_Logo.svg" alt="Telegram" width={24} height={24} />
-                            <p>Telegram</p>
+                    <div className="flex flex-col gap-2">
+                        <div className="flex flex-row gap-4">
+                            <p>Label Color: </p>
+                            <p className="rounded px-2" style={{background: labelColors[formData.color]?.background, color: labelColors[formData.color]?.text}}>{labelColors[formData.color]?.name}</p>
                         </div>
-                    </details>
+                        <div className="flex flex-row justify-between">
+                            {labelColors.map((color, index) => (
+                                <button key={index} onClick={() => handleColorSelection(index)} className="rounded p-2" style={{background: color.background, color: color.text}}>T</button>
+                            ))}
+                        </div>
+                    </div>
                     <button onClick={deleteMutation.mutate} disabled={deleteMutation.isPending} className={`button bg-red-500 ${deleteMutation.isPending ? "loading" : ""}`}>Delete</button>
-                    <button onClick={editMutation.mutate} disabled={editMutation.isPending} className={`button bg-slate-800 ${editMutation.isPending ? "loading" : ""}`}>Edit</button>
+                    <button onClick={editMutation.mutate} disabled={editMutation.isPending} className={`button bg-slate-800 ${editMutation.isPending ? "loading" : ""}`}>Save</button>
                 </>}
         </div>
     )

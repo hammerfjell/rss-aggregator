@@ -35,6 +35,7 @@ export async function POST (request) {
         data: {
             name: data.name,
             url: data.url,
+            color: parseInt(data.color),
             user : { connect: { id: user.id } }
         }
     });
