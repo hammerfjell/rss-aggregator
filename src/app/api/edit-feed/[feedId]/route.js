@@ -7,9 +7,6 @@ export async function PATCH (request, { params }) {
 
     const { feedId } = params;
 
-    //sleep 1000ms
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
     const data = await request.json();
 
     // TODO: Validate

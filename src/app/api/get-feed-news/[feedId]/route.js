@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { authOptions } from "../../auth/[...nextauth]/route";
+import parse from "rss-to-json";
 
 export async function GET (request, { params }) {
 
@@ -36,5 +37,21 @@ export async function GET (request, { params }) {
         return NextResponse.json({ message: "Feed not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ feed }, { status: 200 });
+    const content = [];
+
+    const data = await parse(feed.url);
+
+    data.items.forEach(item => {
+        content.push({
+            feedId: feed.id,
+            label: feed.name,
+            color: feed.color,
+            description: data.description,
+            title: item.title,
+            link: item.link,
+            published: item.published,
+        });
+    });
+
+    return NextResponse.json({ content }, { status: 200 });
 }

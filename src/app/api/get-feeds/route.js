@@ -5,9 +5,6 @@ import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function GET (request) {
 
-    //sleep 1000ms
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
     const session = await getServerSession(authOptions);
 
     if(!session) {

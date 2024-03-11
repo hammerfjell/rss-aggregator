@@ -24,6 +24,10 @@ const api = {
     editFeed: async (id, form) => {
         const { data } = await axios.patch(`/api/edit-feed/${id}`, form);
         return data;
+    },
+    getFeedNews: async (id) => {
+        const { data } = await axios.get(`/api/get-feed-news/${id}`);
+        return data;
     }
 }
 

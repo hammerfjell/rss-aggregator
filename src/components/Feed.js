@@ -15,7 +15,7 @@ export default function Feed({ feed }) {
                 <p className="opacity-50">
                     {feed.description}
                 </p>
-                <p className="ml-auto">
+                <p className="ml-auto opacity-50">
                     {new Date(feed.published).toLocaleString()}
                 </p>
             </p>

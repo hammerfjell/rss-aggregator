@@ -5,8 +5,8 @@ import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function POST (request) {
 
-    //sleep 1000ms
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // //sleep 1000ms
+    // await new Promise(resolve => setTimeout(resolve, 1000));
 
     const data = await request.json();
 

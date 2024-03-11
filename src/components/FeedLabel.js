@@ -11,7 +11,7 @@ export default function FeedLabel({ feed }) {
     const invert = color.text === "white" || feed.color === 0;
 
     return (
-        <div style={{ background: color?.background, color: color?.text }} className="pl-2 pr-3 rounded-lg flex flex-row items-center gap-2">
+        <Link href={`/app/feed/${feed.id}/${feed.name}`} style={{ background: color?.background, color: color?.text }} className="pl-2 pr-3 rounded-lg flex flex-row items-center gap-2">
             <Image
                 style={{ filter: invert ? "invert(100%)" : "invert(0%)" }}
                 src="/ui/rss-icon.png"
@@ -22,9 +22,9 @@ export default function FeedLabel({ feed }) {
                 <Image
                     style={{ filter: invert ? "invert(100%)" : "invert(0%)" }}
                     src="/ui/edit-icon.png"
-                    alt="Visibility"
+                    alt="Edit"
                     width={16} height={16} />
             </Link>
-        </div>
+        </Link>
     )
 }
